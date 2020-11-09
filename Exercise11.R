@@ -1,0 +1,1 @@
+##Generate a script that simulates growth of the two sub-populations in the tumor to equilibrium followed by drug treatment. Plot your results using a line graph.
