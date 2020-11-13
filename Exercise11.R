@@ -1,6 +1,6 @@
 ##Generate a script that simulates growth of the two sub-populations in the tumor to equilibrium followed by drug treatment. 
 ##Input basic information
-timesteps=10000
+timesteps=1000
 r=0.1
 K=1000000
 N0=100
@@ -28,6 +28,8 @@ library(ggplot2)
 normal<-data.frame(time=1:timesteps,N=NsEvents)
 ggplot(data=normal,aes(x=time,y=N))+geom_line()+theme_classic()
 
+#I know this is wrong,but I can't find whats wrong, I would think its my equation but it looks right?
+
 mutant<-data.frame(time=1:timesteps,M=MsEvents)
 ggplot(data=mutant,aes(x=time,y=M))+geom_line()+theme_classic()
 #This would help me find the equilibrium, to know when to introduce the drug
@@ -51,5 +53,6 @@ for(t in 1:(timesteps-1)){
   }
 }
 #Plot your results using a line graph.
-
+population<-data.frame(time=1:timesteps,N=NsEvents,M=MsEvents)
+ggplot(data=population)+geom_line(aes(x=time,y=N))+geom_line(aes(x=time,y=M),col="red")+theme_classic()
 
