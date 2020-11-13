@@ -14,16 +14,24 @@ MsEvents[1]=M0
 #variable for changes in growth rate
 rnc=-0.1
 rmc=0.5*0.1
-#Original 
-NsEvents[t+1] <- NsEvents[t]+r*NsEvents[t]*(1-(NsEvents[t]+MsEvents[t])/K)
-MsEvents[t+1]<- MsEvents[t]+r*MsEvents[t]*(1-(NsEvents[t]+MsEvents[t])/K)
+#Original- normal
+for(t in 1:(timesteps-1)){
+  NsEvents[t+1]<- NsEvents[t]+r*NsEvents[t]*(1-(NsEvents[t]+MsEvents[t])/K)  
+}
+
+#Original-mutant
+for(t in 1:(timesteps-1)){
+MsEvents[t+1]<- MsEvents[t]+r*MsEvents[t]*(1-(NsEvents[t]+MsEvents[t])/K)}
 
 #plot:
-normal<-data.frame(time=1:timesteps,N=NsEvents)
 library(ggplot2)
+normal<-data.frame(time=1:timesteps,N=NsEvents)
 ggplot(data=normal,aes(x=time,y=N))+geom_line()+theme_classic()
-#This would help me find the equilibrium, to know when to introduce the drug
 
+mutant<-data.frame(time=1:timesteps,M=MsEvents)
+ggplot(data=mutant,aes(x=time,y=M))+geom_line()+theme_classic()
+#This would help me find the equilibrium, to know when to introduce the drug
+#Since, I cant figure that out, based on this I will write the rest of the code as though equilibrium occurred at t=50
 #Simulation with new events- normal subpopulation
 for(t in 1:(timesteps-1)){
   if(t==50){
@@ -43,4 +51,5 @@ for(t in 1:(timesteps-1)){
   }
 }
 #Plot your results using a line graph.
+
 
